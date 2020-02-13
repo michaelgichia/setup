@@ -54,7 +54,7 @@ function promptUser() {
 function runGitAddForce() {
   return new Promise((resolve, reject) => {
     exec(
-      `git add tests --force`,
+      `git add {files} --force`,
       {
         silent: true,
       },
