@@ -1,0 +1,23 @@
+{
+  "name": "mike-hooks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/polyfill": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "chalk": "^3.0.0",
+    "core-js": "^2.6.11"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.8.4"
+  }
+}
