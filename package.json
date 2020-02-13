@@ -3,11 +3,16 @@
   "version": "1.0.7",
   "description": "",
   "main": "index.js",
-  "bin": "lib/index.js",
+    "bin": {
+    "mike-hooks": "lib/index.js"
+  },
   "scripts": {
     "build": "babel src --out-dir lib"
   },
   "files": [
+    "LICENSE",
+    "README.md",
+    "bin",
     "lib"
   ],
   "author": "",
