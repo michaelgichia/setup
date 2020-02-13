@@ -3,7 +3,7 @@
   "version": "1.0.7",
   "description": "",
   "main": "index.js",
-    "bin": {
+  "bin": {
     "mike-hooks": "lib/index.js"
   },
   "scripts": {
