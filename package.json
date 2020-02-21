@@ -7,7 +7,7 @@
     "singleQuote": false,
     "semi": true
   },
-  "main": "src/index.js",
+  "main": "tests/index.js",
   "bin": "lib/index.js",
   "eslintConfig": {
     "parser": "babel-eslint",
@@ -30,7 +30,7 @@
   ],
   "scripts": {
     "build": "babel src --out-dir lib",
-    "commit": "node src/index.js"
+    "commit": "node tests/index.js"
   },
   "files": [
     "LICENSE",

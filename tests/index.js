@@ -56,7 +56,7 @@ function promptUser() {
 function runGitAddForce() {
   return new Promise((resolve, reject) => {
     exec(
-      `git add src --force`,
+      `git add tests --force`,
       {
         silent: false
       },
@@ -78,7 +78,7 @@ function runGitAddForce() {
 function lintStagedFiles() {
   return new Promise((resolve, reject) => {
     exec(
-      "eslint --ignore-path .gitignore src/*.js --fix",
+      "eslint --ignore-path .gitignore tests/*.js --fix",
       {
         silent: false
       },
@@ -100,7 +100,7 @@ function lintStagedFiles() {
 function runPrettier() {
   return new Promise((resolve, reject) => {
     exec(
-      "prettier --write src/*.js",
+      "prettier --write tests/*.js",
       {
         silent: false
       },
