@@ -29,7 +29,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "babel src --out-dir lib",
+    "build": "babel tests --out-dir lib",
     "commit": "node tests/index.js"
   },
   "files": [
