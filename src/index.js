@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const util = require('util')
-const {exec} = require('child_process')
-const chalk = require('chalk')
+const util = require("util");
+const { exec } = require("child_process");
+const chalk = require("chalk");
 
 /**
  * Log success message
@@ -11,10 +11,10 @@ const chalk = require('chalk')
  */
 function reportSuccess(message) {
   return result => {
-    process.stdout.write(chalk.green(' ✓'))
-    console.log(chalk.green(` ${message}`))
-    return result
-  }
+    process.stdout.write(chalk.green(" ✓"));
+    console.log(chalk.green(` ${message}`));
+    return result;
+  };
 }
 
 /**
@@ -23,9 +23,9 @@ function reportSuccess(message) {
  * @returns {Function} function
  */
 function reportErrors(reason) {
-  process.stdout.write(chalk.red(' ✘'))
-  console.error(chalk.red(` ${reason}`))
-  process.exit(1)
+  process.stdout.write(chalk.red(" ✘"));
+  console.error(chalk.red(` ${reason}`));
+  process.exit(1);
 }
 
 /**
@@ -35,18 +35,18 @@ function reportErrors(reason) {
 function promptUser() {
   return new Promise(resolve => {
     process.stdout.write(
-      chalk.bold.greenBright('Do you want to run Eslint? [Y/n] '),
-    )
-    process.stdin.resume()
-    process.stdin.on('data', pData => {
+      chalk.bold.greenBright("Do you want to run Eslint? [Y/n] ")
+    );
+    process.stdin.resume();
+    process.stdin.on("data", pData => {
       const answer =
         pData
           .toString()
           .trim()
-          .toLowerCase() || 'y'
-      answer === 'y' ? resolve(true) : resolve(false)
-    })
-  })
+          .toLowerCase() || "y";
+      answer === "y" ? resolve(true) : resolve(false);
+    });
+  });
 }
 
 /**
@@ -56,19 +56,19 @@ function promptUser() {
 function runGitAddForce() {
   return new Promise((resolve, reject) => {
     exec(
-      `git add tests --force`,
+      `git add src --force`,
       {
-        silent: false,
+        silent: false
       },
       (code, error) => {
         if (code) {
-          reject(new Error(error))
+          reject(new Error(error));
         } else {
-          resolve()
+          resolve();
         }
-      },
-    )
-  })
+      }
+    );
+  });
 }
 
 /**
@@ -78,19 +78,19 @@ function runGitAddForce() {
 function lintStagedFiles() {
   return new Promise((resolve, reject) => {
     exec(
-      'npm run lint:eslint:fix',
+      "eslint --ignore-path .gitignore src/*.js --fix",
       {
-        silent: true,
+        silent: false
       },
       (code, error) => {
         if (code) {
-          reject(new Error(error))
+          reject(new Error(error));
         } else {
-          resolve()
+          resolve();
         }
-      },
-    )
-  })
+      }
+    );
+  });
 }
 
 /**
@@ -100,39 +100,39 @@ function lintStagedFiles() {
 function runPrettier() {
   return new Promise((resolve, reject) => {
     exec(
-      'npm run prettify',
+      "prettier --write src/*.js",
       {
-        silent: true,
+        silent: false
       },
       (code, error) => {
         if (code) {
-          reject(new Error(error))
+          reject(new Error(error));
         } else {
-          resolve()
+          resolve();
         }
-      },
-    )
-  })
+      }
+    );
+  });
 }
 
 /**
  * Run the cli on the pre-commit hook
  */
-;(async () => {
-  const answer = await promptUser()
+(async () => {
+  const answer = await promptUser();
   if (answer === true) {
     const result = await lintStagedFiles()
-      .then(reportSuccess('[1] Eslint passed'))
-      .catch(reason => reportErrors(reason))
+      .then(reportSuccess("[1] Eslint passed"))
+      .catch(reason => reportErrors(reason));
     await runPrettier()
-      .then(reportSuccess('[2] Prettier completed'))
-      .catch(reason => reportErrors(reason))
+      .then(reportSuccess("[2] Prettier completed"))
+      .catch(reason => reportErrors(reason));
   } else {
     await runPrettier()
-      .then(reportSuccess('[1] Prettier completed'))
-      .catch(reason => reportErrors(reason))
+      .then(reportSuccess("[1] Prettier completed"))
+      .catch(reason => reportErrors(reason));
   }
-  await runGitAddForce()
-  process.stdout.write(chalk.bold.cyanBright('\nDone!\n'))
-  process.exit(0)
-})()
+  await runGitAddForce();
+  process.stdout.write(chalk.bold.cyanBright("\nDone!\n"));
+  process.exit(0);
+})();

@@ -1,0 +1,5 @@
+pre-commit:
+  commands:
+    tests-linter:
+      glob: "*.{js}"
+      run: npm run commit
