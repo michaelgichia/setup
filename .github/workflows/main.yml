@@ -1,26 +1,19 @@
-# name: "units-test"
-# on:
-#   pull_request:
-#   push:
-#     branches:
-#       - master
-#       - 'releases/*'
+name: Auto approve
 
-# jobs:
-#   # unit tests
-#   units:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: michaelgichia/javacsript-actiont@v4
-#     - run: npm ci
-
-on: pull_request
-
+on:
+  pull_request:
+    branches:
+      - master
+      - 'skipped*'
 jobs:
-  one:
-    runs-on: ubuntu-16.04
+  building:
+    name: lgtm
+    runs-on: ubuntu-latest
     steps:
-      - name: Dump GitHub context
+      - name: fetching..
+        uses: michaelgichia/javacsript-action@master
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
         env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+          BRANCH_PREFIX: "skipped*"
+          PULL_REQUEST_BRANCH: "master"
