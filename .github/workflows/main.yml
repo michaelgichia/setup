@@ -12,7 +12,8 @@ jobs:
     steps:
       - name: fetching..
         uses: michaelgichia/javacsript-action@master
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
         env:
-          token: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_PREFIX: "skipped*"
           PULL_REQUEST_BRANCH: "master"
